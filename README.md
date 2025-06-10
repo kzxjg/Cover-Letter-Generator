@@ -22,19 +22,14 @@ You will also need a **Groq API Key**.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    cd your-repo-name
+    git clone https://github.com/kzxjg/Cover-Letter-Generator.git
     ```
-
-    (Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.)
 
 2.  **Install the required Python packages:**
 
     ```bash
     pip install -r requirements.txt
     ```
-
-    **Note:** You'll need to create a `requirements.txt` file in your project's root directory with the following content:
 
     ```
     langchain-groq
@@ -91,5 +86,3 @@ We welcome contributions! If you have suggestions for improvements or new featur
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
-
-**Note:** Remember to replace placeholder values like `your-username`, `your-repo-name`, and `your_script_name.py` with your actual project details. You should also create a `LICENSE` file if you choose to include one.
