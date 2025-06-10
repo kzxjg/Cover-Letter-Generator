@@ -32,23 +32,30 @@ llm = ChatGroq(
 )
 
 job_prompt = ChatPromptTemplate.from_messages(
-    "{job_description} This is the job description, I want you to extract the job requirements, important skills, and what the job entails from the link provided. No preamble"
+    [
+        ("system", "You are an expert in extracting important information from a job description."),
+        ("human", ". No preamble. Extract the key requirements from this job description such as the role requirements, education requirements, YOE, and what the role entails"),
+        ("human", f"Job Description: {job_description}")
+    ]
+)
+extract_job = job_prompt | llm
+job_response = extract_job.invoke({})
+job_details = job_response.content
+
+cover_letter_prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system", "You are a cover letter generator which generates a cover letter based on the resume that is provided", 
+            "Generate a cover letter based on the extracted job details and tailor it to the resume that I have provided",
+        ),
+        ("human", f"My Resume:\n{resume_doc}\n\nJob Details:\n{job_details}\n\nPlease generate a professional cover letter."),
+    ]
 )
 
-extract = job_prompt | llm
-res = extract.invoke(input = {'job_description': job_description})
-
-
-messages = [
-    (
-        "system",
-        "You are a cover letter Generator. You take in the given resumes that the user enters and then outputs a neat cover letter which tailors the cover letter to the resume and job description.",
-    ),
-    "human", f"{resume_doc}",
-]
-
-ai_msg = llm.invoke(messages)
+CV_extract = cover_letter_prompt | llm
+ai_msg = CV_extract.inovke({})
 print(ai_msg.content)
+
 
 
 
