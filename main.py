@@ -32,8 +32,12 @@ llm = ChatGroq(
 )
 
 job_prompt = ChatPromptTemplate.from_messages(
-    "{job_description} This is the job description, I want you to extract the important skills, job requirements, and what the job entails from the link provided. No preamble"
+    "{job_description} This is the job description, I want you to extract the job requirements, important skills, and what the job entails from the link provided. No preamble"
 )
+
+extract = job_prompt | llm
+res = extract.invoke(input = {'job_description': job_description})
+
 
 messages = [
     (
@@ -45,6 +49,10 @@ messages = [
 
 ai_msg = llm.invoke(messages)
 print(ai_msg.content)
+
+
+
+
 
 
 
